@@ -1,0 +1,160 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.domain\\entities\\envelope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|solutionrelative:sinkingfunds.domain\\entities\\envelope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.domain\\sinkingfunds.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|solutionrelative:sinkingfunds.domain\\sinkingfunds.domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3CFCDBC-F0D6-4C24-9E07-460909F016B1}|SinkingFunds.Application\\SinkingFunds.Application.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.application\\sinkingfunds.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D3CFCDBC-F0D6-4C24-9E07-460909F016B1}|SinkingFunds.Application\\SinkingFunds.Application.csproj|solutionrelative:sinkingfunds.application\\sinkingfunds.application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A744C-C10F-4979-AA9F-DE8536D46736}|SinkingFunds.Tests\\SinkingFunds.Tests.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.tests\\sinkingfunds.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E31A744C-C10F-4979-AA9F-DE8536D46736}|SinkingFunds.Tests\\SinkingFunds.Tests.csproj|solutionrelative:sinkingfunds.tests\\sinkingfunds.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E31A744C-C10F-4979-AA9F-DE8536D46736}|SinkingFunds.Tests\\SinkingFunds.Tests.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E31A744C-C10F-4979-AA9F-DE8536D46736}|SinkingFunds.Tests\\SinkingFunds.Tests.csproj|solutionrelative:sinkingfunds.tests\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{72BD383B-17F4-4BEC-9924-34C8DBC44E86}|SinkingFunds.Infrastructure\\SinkingFunds.Infrastructure.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{72BD383B-17F4-4BEC-9924-34C8DBC44E86}|SinkingFunds.Infrastructure\\SinkingFunds.Infrastructure.csproj|solutionrelative:sinkingfunds.infrastructure\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3CFCDBC-F0D6-4C24-9E07-460909F016B1}|SinkingFunds.Application\\SinkingFunds.Application.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3CFCDBC-F0D6-4C24-9E07-460909F016B1}|SinkingFunds.Application\\SinkingFunds.Application.csproj|solutionrelative:sinkingfunds.application\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|c:\\users\\vasqu\\sinking funds\\sinkingfunds\\sinkingfunds.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{10CBCC5B-A23C-49EA-A3D9-6289F0E46A5B}|SinkingFunds.Domain\\SinkingFunds.Domain.csproj|solutionrelative:sinkingfunds.domain\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Envelope.cs",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\Entities\\Envelope.cs",
+              "RelativeDocumentMoniker": "SinkingFunds.Domain\\Entities\\Envelope.cs",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\Entities\\Envelope.cs*",
+              "RelativeToolTip": "SinkingFunds.Domain\\Entities\\Envelope.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T00:17:42.953Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SinkingFunds.Domain",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj",
+              "RelativeDocumentMoniker": "SinkingFunds.Domain\\SinkingFunds.Domain.csproj",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj*",
+              "RelativeToolTip": "SinkingFunds.Domain\\SinkingFunds.Domain.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-02T00:02:48.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SinkingFunds.Application",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\SinkingFunds.Application.csproj",
+              "RelativeDocumentMoniker": "SinkingFunds.Application\\SinkingFunds.Application.csproj",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\SinkingFunds.Application.csproj*",
+              "RelativeToolTip": "SinkingFunds.Application\\SinkingFunds.Application.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-01T23:10:55.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SinkingFunds.Tests",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Tests\\SinkingFunds.Tests.csproj",
+              "RelativeDocumentMoniker": "SinkingFunds.Tests\\SinkingFunds.Tests.csproj",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Tests\\SinkingFunds.Tests.csproj*",
+              "RelativeToolTip": "SinkingFunds.Tests\\SinkingFunds.Tests.csproj*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-12-01T23:09:37.237Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Tests\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "SinkingFunds.Tests\\UnitTest1.cs",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Tests\\UnitTest1.cs",
+              "RelativeToolTip": "SinkingFunds.Tests\\UnitTest1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T23:08:02.326Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Infrastructure\\Class1.cs",
+              "RelativeDocumentMoniker": "SinkingFunds.Infrastructure\\Class1.cs",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Infrastructure\\Class1.cs",
+              "RelativeToolTip": "SinkingFunds.Infrastructure\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T23:07:30.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\Class1.cs",
+              "RelativeDocumentMoniker": "SinkingFunds.Application\\Class1.cs",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\Class1.cs",
+              "RelativeToolTip": "SinkingFunds.Application\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T23:07:09.495Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\Class1.cs",
+              "RelativeDocumentMoniker": "SinkingFunds.Domain\\Class1.cs",
+              "ToolTip": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\Class1.cs",
+              "RelativeToolTip": "SinkingFunds.Domain\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T23:06:46.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
