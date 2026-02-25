@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SinkingFunds.Application\SinkingFunds.Application.csproj" />
+    <ProjectReference Include="..\SinkingFunds.Infrastructure\SinkingFunds.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

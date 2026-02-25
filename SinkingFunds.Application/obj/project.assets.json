@@ -27,23 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vasqu\\.nuget\\packages\\": {},
+    "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\SinkingFunds.Application.csproj",
+      "projectUniqueName": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Application\\SinkingFunds.Application.csproj",
       "projectName": "SinkingFunds.Application",
-      "projectPath": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\SinkingFunds.Application.csproj",
-      "packagesPath": "C:\\Users\\vasqu\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Application\\obj\\",
+      "projectPath": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Application\\SinkingFunds.Application.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\vasqu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -58,8 +58,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj": {
-              "projectPath": "C:\\Users\\vasqu\\Sinking Funds\\SinkingFunds\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj"
+            "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj": {
+              "projectPath": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj"
             }
           }
         }
@@ -95,7 +95,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

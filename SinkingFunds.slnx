@@ -1,7 +1,0 @@
-<Solution>
-  <Project Path="../../../../../../Sinking Funds/SinkingFunds/SinkingFunds.Application/SinkingFunds.Application.csproj" />
-  <Project Path="../../../../../../Sinking Funds/SinkingFunds/SinkingFunds.Domain/SinkingFunds.Domain.csproj" />
-  <Project Path="../../../../../../Sinking Funds/SinkingFunds/SinkingFunds.Infrastructure/SinkingFunds.Infrastructure.csproj" />
-  <Project Path="../../../../../../Sinking Funds/SinkingFunds/SinkingFunds.Tests/SinkingFunds.Tests.csproj" />
-  <Project Path="../../../../../../Sinking Funds/SinkingFunds/SinkingFunds.Web/SinkingFunds.Web.csproj" />
-</Solution>

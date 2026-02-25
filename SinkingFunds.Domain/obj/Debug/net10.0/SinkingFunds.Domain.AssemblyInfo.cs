@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SinkingFunds.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+701cb5aa1c3669aa73893e5eb6a1ae8b63aa8661")]
 [assembly: System.Reflection.AssemblyProductAttribute("SinkingFunds.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SinkingFunds.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
