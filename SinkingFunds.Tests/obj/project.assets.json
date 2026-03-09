@@ -416,6 +416,20 @@
         "runtime": {
           "bin/placeholder/SinkingFunds.Domain.dll": {}
         }
+      },
+      "SinkingFunds.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "SinkingFunds.Application": "1.0.0",
+          "SinkingFunds.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/SinkingFunds.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/SinkingFunds.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -936,6 +950,11 @@
       "type": "project",
       "path": "../SinkingFunds.Domain/SinkingFunds.Domain.csproj",
       "msbuildProject": "../SinkingFunds.Domain/SinkingFunds.Domain.csproj"
+    },
+    "SinkingFunds.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../SinkingFunds.Infrastructure/SinkingFunds.Infrastructure.csproj",
+      "msbuildProject": "../SinkingFunds.Infrastructure/SinkingFunds.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -943,6 +962,7 @@
       "Microsoft.NET.Test.Sdk >= 17.14.1",
       "SinkingFunds.Application >= 1.0.0",
       "SinkingFunds.Domain >= 1.0.0",
+      "SinkingFunds.Infrastructure >= 1.0.0",
       "coverlet.collector >= 6.0.4",
       "xunit >= 2.9.3",
       "xunit.runner.visualstudio >= 3.1.4"
@@ -985,6 +1005,9 @@
             },
             "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj": {
               "projectPath": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Domain\\SinkingFunds.Domain.csproj"
+            },
+            "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Infrastructure\\SinkingFunds.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\User\\SinkingFundsApp\\SinkingFunds.Infrastructure\\SinkingFunds.Infrastructure.csproj"
             }
           }
         }

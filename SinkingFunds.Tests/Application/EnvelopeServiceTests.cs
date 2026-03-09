@@ -60,5 +60,28 @@ namespace SinkingFunds.Tests.Application
 
 
         }
+
+        [Fact]
+        public void WithdrawFromEnvelope_LoadsById_AndCallsWithdraw()
+        {
+            //arrange
+            Envelope houseFund = new Envelope("House Fund");
+            _repo.Add(houseFund);
+            string despoitDescription = "monthly 100 dollar contribution";
+            decimal depositAmount = 100;
+            DateTime depositDate = DateTime.Now;
+            _service.DepositToEnvelope(houseFund.Id, despoitDescription, depositAmount, depositDate);
+            string withdrawDescription = "20 dollar emergency withdrawal";
+            decimal withdrawAmount = 20;
+            DateTime withdrawDate = DateTime.Now;
+
+            //act
+            _service.WithdrawFromEnvelope(houseFund.Id, withdrawDescription, withdrawAmount, withdrawDate);
+
+            //assert
+            Envelope returnedEnvelope = _repo.GetById(houseFund.Id);
+            Assert.Equal(80m, returnedEnvelope.GetAmount());
+
+        }
     }
 }
