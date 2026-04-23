@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SinkingFunds.Application\SinkingFunds.Application.csproj" />
     <ProjectReference Include="..\SinkingFunds.Domain\SinkingFunds.Domain.csproj" />
+    <ProjectReference Include="..\SinkingFunds.Infrastructure\SinkingFunds.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Infrastructure\" />
     <Folder Include="Web\" />
   </ItemGroup>
 

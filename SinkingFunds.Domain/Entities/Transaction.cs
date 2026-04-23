@@ -9,7 +9,7 @@ namespace SinkingFunds.Domain.Entities
         public string Description { get; private set; }
         public decimal Amount { get; private set; }
         public TransactionType Direction { get; private set; }
-        public DateTime OccuredOn { get; private set; }
+        public DateTime OccurredOn { get; private set; }
 
         public Transaction(string description, decimal amount, TransactionType direction, DateTime occuredOn)
         {
@@ -17,7 +17,7 @@ namespace SinkingFunds.Domain.Entities
             Description = description;
             Amount = amount;
             Direction = direction;
-            OccuredOn = occuredOn;
+            OccurredOn = occuredOn;
         }
     }
 }

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SinkingFunds.Application\SinkingFunds.Application.csproj" />
     <ProjectReference Include="..\SinkingFunds.Domain\SinkingFunds.Domain.csproj" />
   </ItemGroup>

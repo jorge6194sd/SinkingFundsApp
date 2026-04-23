@@ -58,5 +58,9 @@ namespace SinkingFunds.Domain.Entities
         {
             envelopeDepositRule = rule;
         }
+        public IEnumerable<Transaction> GetTransactions()
+        {
+            return transactions; 
+        }
     }
 }
