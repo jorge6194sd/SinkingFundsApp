@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SinkingFunds.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1ee4b29c495da618a6b282df5e69dd4ce6153b83")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7031e3d56f62f286b23c7cee2c3c6b1c65480221")]
 [assembly: System.Reflection.AssemblyProductAttribute("SinkingFunds.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SinkingFunds.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
