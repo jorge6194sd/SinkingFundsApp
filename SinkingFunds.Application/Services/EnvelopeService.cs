@@ -21,12 +21,15 @@ namespace SinkingFunds.Application.Services
         {
             Envelope envelope = repoType.GetById(envelopeId);
             envelope.Deposit(depositDescription, depositQuantity, depositDate);
+            repoType.Save(envelope);
         }
 
         public void WithdrawFromEnvelope(Guid envelopeId, string withdrawDescription, decimal withdrawQuantity, DateTime withdrawDate)
         {
             Envelope envelope = repoType.GetById(envelopeId);
-            envelope.Withdraw(withdrawDescription, withdrawQuantity, withdrawDate); 
+            envelope.Withdraw(withdrawDescription, withdrawQuantity, withdrawDate);
+            repoType.Save(envelope);
+
         }
     }
 }

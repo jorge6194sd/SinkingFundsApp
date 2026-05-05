@@ -16,6 +16,11 @@ namespace SinkingFunds.Infrastructure.Adapters
             envelopes.Add(envelope);
         }
 
+        public void Save(Envelope envelope)
+        {
+            throw new NotImplementedException();
+        }
+
         public Envelope GetById(Guid id)
         {
             foreach (var envelope in envelopes) 

@@ -23,6 +23,15 @@ namespace SinkingFunds.Domain.Entities
             envelopeDepositRule = null;
         }
 
+        public Envelope(Guid id, string name, bool isActive) 
+        {
+            Id = id;
+            Name = name;
+            IsActive = isActive;
+            transactions = new Collection<Transaction>();
+            envelopeDepositRule = null;
+        }
+
         public void Deposit(string description, decimal amount, DateTime occuredOn)
         {
             var transaction = new Transaction(description, amount, TransactionType.Deposit, occuredOn);
@@ -32,6 +41,11 @@ namespace SinkingFunds.Domain.Entities
         public void Withdraw(string description, decimal amount, DateTime occuredOn)
         {
             var transaction = new Transaction(description, amount, TransactionType.Withdrawal, occuredOn);
+            transactions.Add(transaction);
+        }
+
+        public void AddExistingTransaction(Transaction transaction)
+        {
             transactions.Add(transaction);
         }
 

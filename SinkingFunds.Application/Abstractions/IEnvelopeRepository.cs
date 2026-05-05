@@ -9,6 +9,8 @@ namespace SinkingFunds.Application.Abstractions
 
          Envelope GetById(Guid lookupId);
 
+        void Save(Envelope envelope);
+
 
     }
 }

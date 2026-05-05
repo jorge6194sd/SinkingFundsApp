@@ -11,13 +11,21 @@ namespace SinkingFunds.Domain.Entities
         public TransactionType Direction { get; private set; }
         public DateTime OccurredOn { get; private set; }
 
-        public Transaction(string description, decimal amount, TransactionType direction, DateTime occuredOn)
+        public Transaction(string description, decimal amount, TransactionType direction, DateTime occurredOn)
         {
             Id = Guid.NewGuid();
             Description = description;
             Amount = amount;
             Direction = direction;
-            OccurredOn = occuredOn;
+            OccurredOn = occurredOn;
+        }
+        public Transaction(Guid id, string description, decimal amount, TransactionType direction, DateTime occurredOn)
+        {
+            Id = id;
+            Description = description;
+            Amount = amount;
+            Direction = direction;
+            OccurredOn = occurredOn;
         }
     }
 }
