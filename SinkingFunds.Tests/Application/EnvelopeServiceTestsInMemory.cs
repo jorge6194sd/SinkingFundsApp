@@ -5,12 +5,12 @@ using SinkingFunds.Application.Services;
 
 namespace SinkingFunds.Tests.Application
 {
-    public class EnvelopeServiceTests
+    public class EnvelopeServiceTestsInMemory
     {
         private FakeEnvelopeRepository _repo;
         private EnvelopeService _service;
        
-        public EnvelopeServiceTests()
+        public EnvelopeServiceTestsInMemory()
         {
             _repo = new FakeEnvelopeRepository();
             _service = new EnvelopeService(_repo);
@@ -22,6 +22,11 @@ namespace SinkingFunds.Tests.Application
             public void Add(Envelope envelope)
             {
                 tempList.Add(envelope);
+            }
+
+            public void Save(Envelope envelope)
+            {
+                throw new NotImplementedException();
             }
 
             public Envelope GetById(Guid id)

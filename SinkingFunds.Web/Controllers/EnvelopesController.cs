@@ -14,22 +14,23 @@ namespace SinkingFunds.Web.Controllers
             _envelopeService = envelopeService;
         }
         
-        // GET: api/<EnvelopesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            throw new NotImplementedException();
-        }
-
-        // GET api/<EnvelopesController>/5
-        [HttpGet("{id}")]
+        // GET api/envelope/5
+        [HttpGet("{id}/balance")]
         public IActionResult GetBalance(Guid id)
         {
-            throw new NotImplementedException();
-           //_envelopeService.get
+            decimal balance = _envelopeService.GetEnvelopeBalance(id);
+            return Ok(balance);
         }
 
-        // POST api/<EnvelopesController>/5
+        // POST /api/envelopes/
+        [HttpPost]
+        public IActionResult CreateEnvelope([FromBody] CreateRequest request)
+        {
+            var envelope = _envelopeService.CreateEnvelope(request.Name);
+            return Ok(envelope.Id);
+        }
+
+        // POST /api/envelopes/{id}/withdraw
         [HttpPost("{id}/withdraw")]
         public IActionResult Withdraw(Guid id, [FromBody] WithdrawRequest request)
         {
@@ -37,19 +38,12 @@ namespace SinkingFunds.Web.Controllers
             return NoContent();
         }
 
-        // POST api/<EnvelopesController>/5
+        // POST api/envelopes/{id}/deposit
         [HttpPost("{id}/deposit")]
         public IActionResult Deposit(Guid id, [FromBody] DepositRequest request)
         {
             _envelopeService.DepositToEnvelope(id, request.Description, request.Amount, DateTime.UtcNow);
             return NoContent();
-        }
-
-        // DELETE api/<EnvelopesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -29,7 +29,11 @@ namespace SinkingFunds.Application.Services
             Envelope envelope = repoType.GetById(envelopeId);
             envelope.Withdraw(withdrawDescription, withdrawQuantity, withdrawDate);
             repoType.Save(envelope);
-
+        }
+        public decimal GetEnvelopeBalance(Guid envelopeId)
+        {
+            Envelope envelope = repoType.GetById(envelopeId);
+            return envelope.GetAmount();
         }
     }
 }

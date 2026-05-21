@@ -4,13 +4,45 @@
 
 
 
-    <h1> This is a mock UI</h1>
+    <h1> Envelope Demo UI</h1>
 
-    <div>
-        <button>Deposit</button>
+@if(Model.CreatedEnvelopeId.HasValue)
+{
+    <p>Created Envelope ID: @Model.CreatedEnvelopeId</p>
+}
 
-        <button>Withdraw</button>
-    </div>
+@if(Model.CurrentBalance.HasValue)
+{
+    <p>Current Balance: @Model.CurrentBalance</p>
+}
+
+    <h2>Create Envelope</h2>
+    <form method="post" asp-page-handler="Create">
+        <input name="Name" placeholder="Envelope name" />
+        <button type="submit">Create</button>
+    </form>
+
+<h2>Deposit</h2>
+<form method="post" asp-page-handler="Deposit">
+    <input name="EnvelopeId" placeholder="Envelope ID" />
+    <input name="Amount" placeholder="Amount" />
+    <input name="Description" placeholder="Description" />
+    <button type="submit">Deposit</button>
+</form>
+
+<h2>Withdraw</h2>
+<form method="post" asp-page-handler="Withdraw">
+    <input name="EnvelopeId" placeholder="Envelope ID" />
+    <input name="Amount" placeholder="Amount" />
+    <input name="Description" placeholder="Description" />
+    <button type="submit">Withdraw</button>
+</form>
+
+<h2>View Balance</h2>
+<form method="post" asp-page-handler="Balance">
+    <input name="EnvelopeId" placeholder="Envelope ID" />
+    <button type="submit">View Balance</button>
+</form>
 
 
 

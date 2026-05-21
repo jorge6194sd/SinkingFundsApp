@@ -5,8 +5,8 @@ using SinkingFunds.Infrastructure.Persistence;
 
 
 var builder = WebApplication.CreateBuilder(args);
-string connString = builder.Configuration.GetConnectionString("SinkingFundsDb");
-
+string connString = builder.Configuration.GetConnectionString("SinkingFundsDb")
+    ?? throw new InvalidOperationException("Missing connection string 'SinkingFundsDb'.");
 // Add services to the container.
 
 builder.Services.AddSingleton<IEnvelopeRepository>(_ => new SqliteEnvelopeRepository(connString));
