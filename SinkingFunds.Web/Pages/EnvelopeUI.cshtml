@@ -44,6 +44,26 @@
     <button type="submit">View Balance</button>
 </form>
 
+<h2>Envelope Grid</h2>
 
+<table border="1">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var envelope in Model.Envelopes)
+        {
+            <tr>
+                <td>@envelope.Name</td>
+                <td>@envelope.Id</td>
+                <td>@envelope.Balance</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 

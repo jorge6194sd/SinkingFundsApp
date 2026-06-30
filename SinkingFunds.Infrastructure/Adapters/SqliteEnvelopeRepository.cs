@@ -140,5 +140,41 @@ namespace SinkingFunds.Infrastructure.Adapters
                 transactionInserts.ExecuteNonQuery();
             }
         }
+
+        public IEnumerable<Envelope> GetAll()
+        {
+            List<Guid> envelopeIds = new List<Guid>();
+
+            using (SqliteConnection currConnection = CreateConnection())
+            {
+                currConnection.Open();
+
+                string getAllCommand = "SELECT Id FROM Envelopes";
+
+                using SqliteCommand commandObj = currConnection.CreateCommand();
+                commandObj.CommandText = getAllCommand;
+
+                using SqliteDataReader envelopesReader = commandObj.ExecuteReader();
+
+                while (envelopesReader.Read())
+                {
+                    Guid envelopeId = Guid.Parse(
+                        envelopesReader.GetString(envelopesReader.GetOrdinal("Id"))
+                    );
+
+                    envelopeIds.Add(envelopeId);
+                }
+            }
+
+            List<Envelope> envelopesList = new List<Envelope>();
+
+            foreach (Guid envelopeId in envelopeIds)
+            {
+                Envelope fullEnvelope = GetById(envelopeId);
+                envelopesList.Add(fullEnvelope);
+            }
+
+            return envelopesList;
+        }
     }
 }

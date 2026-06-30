@@ -11,6 +11,21 @@ namespace SinkingFunds.Web.Pages
         public Guid? CreatedEnvelopeId { get; set; }
         public decimal? CurrentBalance { get; set; }
 
+        public class EnvelopeGridRow
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+            public decimal Balance { get; set; }
+        }
+
+        public List<EnvelopeGridRow> Envelopes { get; set; } = new List<EnvelopeGridRow>();
+
+        private async Task LoadEnvelopes(HttpClient client)
+        {
+            Envelopes = await client.GetFromJsonAsync<List<EnvelopeGridRow>>("api/envelopes")
+                ?? new List<EnvelopeGridRow>();
+        }
+
         [BindProperty]
         public Guid EnvelopeId { get; set; }
 
@@ -29,6 +44,7 @@ namespace SinkingFunds.Web.Pages
             var response = await client.PostAsync("api/envelopes", postContent);
             response.EnsureSuccessStatusCode();
             CreatedEnvelopeId = await response.Content.ReadFromJsonAsync<Guid>();
+            await LoadEnvelopes(client);
         }
 
         public async Task OnPostDeposit()
@@ -43,6 +59,7 @@ namespace SinkingFunds.Web.Pages
             CurrentBalance = await client.GetFromJsonAsync<decimal>(
                 $"api/envelopes/{EnvelopeId}/balance"
             );
+            await LoadEnvelopes(client);
         }
 
         public async Task OnPostWithdraw()
@@ -57,10 +74,15 @@ namespace SinkingFunds.Web.Pages
             CurrentBalance = await client.GetFromJsonAsync<decimal>(
                 $"api/envelopes/{EnvelopeId}/balance"
             );
+            await LoadEnvelopes(client);
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7005/");
+
+            await LoadEnvelopes(client);
         }
     }
 }

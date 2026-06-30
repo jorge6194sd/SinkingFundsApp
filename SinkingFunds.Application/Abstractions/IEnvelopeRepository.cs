@@ -11,6 +11,7 @@ namespace SinkingFunds.Application.Abstractions
 
         void Save(Envelope envelope);
 
+        IEnumerable<Envelope> GetAll();
 
     }
 }

@@ -45,5 +45,12 @@ namespace SinkingFunds.Web.Controllers
             _envelopeService.DepositToEnvelope(id, request.Description, request.Amount, DateTime.UtcNow);
             return NoContent();
         }
+
+        [HttpGet]
+        public IActionResult GetAllEnvelopes()
+        {
+            var envelopeSummaries = _envelopeService.GetAllEnvelopeSummaries();
+            return Ok(envelopeSummaries);
+        }
     }
 }

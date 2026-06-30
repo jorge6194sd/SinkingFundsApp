@@ -1,9 +1,10 @@
-﻿using System;
-using System.ComponentModel;
-using System.Text;
+﻿using Microsoft.Data.Sqlite;
 using SinkingFunds.Application.Abstractions;
 using SinkingFunds.Domain.Entities;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
 
 namespace SinkingFunds.Infrastructure.Adapters
 {
@@ -20,6 +21,12 @@ namespace SinkingFunds.Infrastructure.Adapters
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Envelope> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
 
         public Envelope GetById(Guid id)
         {
