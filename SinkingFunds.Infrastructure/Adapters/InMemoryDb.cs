@@ -12,6 +12,10 @@ namespace SinkingFunds.Infrastructure.Adapters
     {
         private List<Envelope> envelopes { get; set; } = new List<Envelope>();
     
+        public void Delete(Guid id)
+        {
+            throw new NotImplementedException();
+        }
         public void Add(Envelope envelope)
         {
             envelopes.Add(envelope);

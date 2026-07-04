@@ -7,7 +7,7 @@ namespace SinkingFunds.Application.Services
     public class EnvelopeService
     {
         IEnvelopeRepository repoType;
-        public EnvelopeService(IEnvelopeRepository targetRepo) 
+        public EnvelopeService(IEnvelopeRepository targetRepo)
         {
             repoType = targetRepo;
         }
@@ -19,7 +19,7 @@ namespace SinkingFunds.Application.Services
             public decimal Balance { get; set; }
         }
 
-        public Envelope CreateEnvelope( string targetName)
+        public Envelope CreateEnvelope(string targetName)
         {
             Envelope newEnvelope = new Envelope(targetName);
             repoType.Add(newEnvelope);
@@ -46,7 +46,7 @@ namespace SinkingFunds.Application.Services
 
         public IEnumerable<EnvelopeSummary> GetAllEnvelopeSummaries()
         {
-            IEnumerable<Envelope> envelopesList =  repoType.GetAll();
+            IEnumerable<Envelope> envelopesList = repoType.GetAll();
             return GetEnvelopeSummaries(envelopesList);
         }
 
@@ -64,6 +64,11 @@ namespace SinkingFunds.Application.Services
                 returnedEnvelopes.Add(summary);
             }
             return returnedEnvelopes;
+        }
+
+        public void DeleteEnvelope(Guid id)
+        {
+            repoType.Delete(id);
         }
     }
 }

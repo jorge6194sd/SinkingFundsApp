@@ -150,7 +150,6 @@ namespace SinkingFunds.Infrastructure.Adapters
                 currConnection.Open();
 
                 string getAllCommand = "SELECT Id FROM Envelopes";
-
                 using SqliteCommand commandObj = currConnection.CreateCommand();
                 commandObj.CommandText = getAllCommand;
 
@@ -175,6 +174,28 @@ namespace SinkingFunds.Infrastructure.Adapters
             }
 
             return envelopesList;
+        }
+
+        public void Delete(Guid envelopeId)
+        {
+            //throw new NotImplementedException();
+            using SqliteConnection currConnection = CreateConnection();
+            currConnection.Open();
+
+            //Delete Transactions
+            string deleteTransactionsCommand = "DELETE FROM Transactions WHERE EnvelopeId = @EnvelopeId";
+            using SqliteCommand deleteTransactionsCommandObj = currConnection.CreateCommand();
+            deleteTransactionsCommandObj.CommandText = deleteTransactionsCommand;
+            deleteTransactionsCommandObj.Parameters.AddWithValue("@EnvelopeId", envelopeId.ToString());
+            deleteTransactionsCommandObj.ExecuteNonQuery();
+
+            //Delete Envelopes
+            string deleteEnvelopesCommand = "DELETE FROM Envelopes WHERE Id = @Id";
+            using SqliteCommand deleteEnvelopesCommandObj = currConnection.CreateCommand();
+            deleteEnvelopesCommandObj.CommandText = deleteEnvelopesCommand;
+            deleteEnvelopesCommandObj.Parameters.AddWithValue("@Id", envelopeId.ToString());
+            deleteEnvelopesCommandObj.ExecuteNonQuery();
+
         }
     }
 }
