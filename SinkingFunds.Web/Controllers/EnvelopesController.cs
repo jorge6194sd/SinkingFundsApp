@@ -34,7 +34,8 @@ namespace SinkingFunds.Web.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteEnvelope(Guid id)
         {
-            throw new NotImplementedException();
+            _envelopeService.DeleteEnvelope(id);
+            return NoContent();
         }
 
         // POST /api/envelopes/{id}/withdraw
