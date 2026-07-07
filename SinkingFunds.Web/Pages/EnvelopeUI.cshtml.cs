@@ -77,6 +77,17 @@ namespace SinkingFunds.Web.Pages
             await LoadEnvelopes(client);
         }
 
+
+        public async Task OnPostDelete()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7005/");
+            var response = await client.DeleteAsync($"api/envelopes/{EnvelopeId}");
+            response.EnsureSuccessStatusCode();
+
+            await LoadEnvelopes(client);
+        }
+
         public async Task OnGet()
         {
             HttpClient client = new HttpClient();
