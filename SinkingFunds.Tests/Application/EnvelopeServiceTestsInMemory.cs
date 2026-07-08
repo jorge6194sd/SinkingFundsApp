@@ -18,6 +18,11 @@ namespace SinkingFunds.Tests.Application
 
         private class FakeEnvelopeRepository : IEnvelopeRepository
         {
+
+            public IEnumerable<Envelope> GetAll() {
+               throw new NotImplementedException();
+            }
+
             List<Envelope> tempList = new List<Envelope>();
             public void Add(Envelope envelope)
             {
