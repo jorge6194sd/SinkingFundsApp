@@ -26,6 +26,7 @@ namespace SinkingFunds.Tests.Application
             {
                 throw new NotImplementedException();
             }
+
             List<Envelope> tempList = new List<Envelope>();
             public void Add(Envelope envelope)
             {
