@@ -18,9 +18,13 @@ namespace SinkingFunds.Tests.Application
 
         private class FakeEnvelopeRepository : IEnvelopeRepository
         {
-
-            public IEnumerable<Envelope> GetAll() {
-               throw new NotImplementedException();
+            public void Delete(Guid id)
+            {
+                throw new NotImplementedException();
+            }
+            public IEnumerable<Envelope> GetAll()
+            {
+                throw new NotImplementedException();
             }
 
             List<Envelope> tempList = new List<Envelope>();

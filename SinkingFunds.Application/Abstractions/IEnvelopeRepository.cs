@@ -13,5 +13,7 @@ namespace SinkingFunds.Application.Abstractions
 
         IEnumerable<Envelope> GetAll();
 
+        void Delete(Guid id);
+
     }
 }

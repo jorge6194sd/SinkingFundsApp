@@ -30,6 +30,14 @@ namespace SinkingFunds.Web.Controllers
             return Ok(envelope.Id);
         }
 
+        // DELETE /api/envelopes/{id}
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEnvelope(Guid id)
+        {
+            _envelopeService.DeleteEnvelope(id);
+            return NoContent();
+        }
+
         // POST /api/envelopes/{id}/withdraw
         [HttpPost("{id}/withdraw")]
         public IActionResult Withdraw(Guid id, [FromBody] WithdrawRequest request)
