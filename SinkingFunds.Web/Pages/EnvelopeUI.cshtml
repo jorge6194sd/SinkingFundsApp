@@ -24,7 +24,13 @@
 
 <h2>Deposit</h2>
 <form method="post" asp-page-handler="Deposit">
-    <input name="EnvelopeId" placeholder="Envelope ID" />
+    <select name="EnvelopeId">
+        @foreach(var envelope in Model.Envelopes)
+            {
+                <option value="@envelope.Id">@envelope.Name</option>
+            }
+
+    </select>
     <input name="Amount" placeholder="Amount" />
     <input name="Description" placeholder="Description" />
     <button type="submit">Deposit</button>
@@ -43,11 +49,6 @@
     <button type="submit">Withdraw</button>
 </form>
 
-<h2>View Balance</h2>
-<form method="post" asp-page-handler="Balance">
-    <input name="EnvelopeId" placeholder="Envelope ID" />
-    <button type="submit">View Balance</button>
-</form>
 
 <h2>Envelope Grid</h2>
 
