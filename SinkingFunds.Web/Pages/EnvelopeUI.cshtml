@@ -25,6 +25,7 @@
 <h2>Deposit</h2>
 <form method="post" asp-page-handler="Deposit">
     <select name="EnvelopeId">
+        <option value="" disabled selected>Select Envelope</option>
         @foreach(var envelope in Model.Envelopes)
             {
                 <option value="@envelope.Id">@envelope.Name</option>
@@ -38,7 +39,8 @@
 
 <h2>Withdraw</h2>
 <form method="post" asp-page-handler="Withdraw">
-    <select name="EnvelopeId">
+    <select id="WithdrawEnvelopeId" name="EnvelopeId" required>
+        <option value="" disabled selected>Select Envelope</option>
         @foreach (var envelope in Model.Envelopes)
         {
             <option value="@envelope.Id">@envelope.Name</option>
@@ -52,7 +54,13 @@
 
 <h2>Delete Envelope</h2>
 <form method="post" asp-page-handler="Delete">
-    <input name="EnvelopeId" placeholder="Envelope ID" />
+    <select name="EnvelopeId" required>
+        <option value="" disabled selected>Select Envelope</option>
+        @foreach (var envelope in Model.Envelopes)
+        {
+            <option value="@envelope.Id">@envelope.Name</option>
+        }
+    </select>
     <button type="submit">Delete</button>
 </form>
 
