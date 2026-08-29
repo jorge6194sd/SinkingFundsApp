@@ -54,6 +54,15 @@ namespace SinkingFunds.Web.Controllers
             return NoContent();
         }
 
+
+        // PUT api/envelopes/{id}/target
+        [HttpPut("{id}/target")]
+        public IActionResult UpdateTarget(Guid id, [FromBody] UpdateTargetAmountRequest request)
+        {
+            _envelopeService.UpdateTargetAmount(id, request.TargetAmount);
+            return NoContent();
+        }
+
         [HttpGet]
         public IActionResult GetAllEnvelopes()
         {

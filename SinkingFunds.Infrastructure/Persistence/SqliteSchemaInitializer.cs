@@ -22,7 +22,7 @@ namespace SinkingFunds.Infrastructure.Persistence
 
         private void EnsureEnvelopesTable(SqliteConnection currentConnection)
         {
-            string createCommand = "CREATE TABLE IF NOT EXISTS Envelopes (Id TEXT PRIMARY KEY, Name TEXT NOT NULL, IsActive INTEGER NOT NULL)";
+            string createCommand = "CREATE TABLE IF NOT EXISTS Envelopes (Id TEXT PRIMARY KEY, Name TEXT NOT NULL, IsActive INTEGER NOT NULL, TargetAmount REAL NULL)";
             SqliteCommand commandObj = currentConnection.CreateCommand();
             commandObj.CommandText = createCommand;
             commandObj.ExecuteNonQuery();

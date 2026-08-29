@@ -29,6 +29,7 @@ namespace SinkingFunds.Infrastructure.Adapters
             using SqliteConnection currConnection = CreateConnection();
             currConnection.Open();
 
+            //Lookup the target envelope based off it's ID
             string lookupEnvelope = "SELECT * FROM Envelopes WHERE Id = @Id";
             using SqliteCommand lookupEnvelopeCmd = currConnection.CreateCommand();
             lookupEnvelopeCmd.CommandText = lookupEnvelope;
@@ -38,9 +39,18 @@ namespace SinkingFunds.Infrastructure.Adapters
             {
                 throw new KeyNotFoundException($"Envelope with Id '{id}' was not found.");
             }
+
+            //Create a new copy of the envelope based off the DB's results
+            int targetAmountOrdinal = reader.GetOrdinal("TargetAmount");
+
+            decimal? targetAmount =
+                reader.IsDBNull(targetAmountOrdinal)
+                    ? null
+                    : Convert.ToDecimal(reader.GetDouble(targetAmountOrdinal));
+
             string name = reader.GetString(reader.GetOrdinal("Name"));
             bool isActive = reader.GetInt32(reader.GetOrdinal("IsActive")) == 1;
-            Envelope returnedEnvelope = new Envelope(id, name, isActive);
+            Envelope returnedEnvelope = new Envelope(id, name, isActive, targetAmount);
             reader.Close();
 
             //Need to retrieve Transactions now from database and rehydrate the envelope
@@ -83,20 +93,30 @@ namespace SinkingFunds.Infrastructure.Adapters
             using SqliteConnection currConnection = CreateConnection();
             currConnection.Open();
 
-            string updateEnvelopeCommand = "UPDATE Envelopes SET Name = @Name, IsActive = @IsActive WHERE Id = @Id";            
+            //Update the envelopes core db fields to match in memory fields
+            string updateEnvelopeCommand = "UPDATE Envelopes SET Name = @Name, IsActive = @IsActive, TargetAmount = @TargetAmount WHERE Id = @Id";            
+
             using SqliteCommand envelopeCmd = currConnection.CreateCommand();
             envelopeCmd.CommandText = updateEnvelopeCommand;
             envelopeCmd.Parameters.AddWithValue("@Id", envelope.Id.ToString());
             envelopeCmd.Parameters.AddWithValue("@Name", envelope.Name);
             envelopeCmd.Parameters.AddWithValue("@IsActive", envelope.IsActive ? 1 : 0);
+            envelopeCmd.Parameters.AddWithValue(
+     "@TargetAmount",
+     envelope.TargetAmount.HasValue
+         ? envelope.TargetAmount.Value
+         : DBNull.Value
+ );
             envelopeCmd.ExecuteNonQuery();
 
+            //delete db's version of envelopes transactions
             string deleteCurrentTransactionsCommand = "DELETE FROM Transactions WHERE EnvelopeId = @EnvelopeId";
             using SqliteCommand deleteTransactionsCmd = currConnection.CreateCommand();
             deleteTransactionsCmd.CommandText = deleteCurrentTransactionsCommand;
             deleteTransactionsCmd.Parameters.AddWithValue("@EnvelopeId", envelope.Id.ToString());
             deleteTransactionsCmd.ExecuteNonQuery();
 
+            //rehydrate envelopes db transactions to match in-memory ones
             foreach (var transaction in envelope.GetTransactions())
             {
                 string insertTransactions = "INSERT INTO Transactions (Id, Description, Amount, Direction, OccurredOn, EnvelopeId) VALUES (@Id, @Description, @Amount, @Direction, @OccurredOn, @EnvelopeId)";
@@ -117,15 +137,22 @@ namespace SinkingFunds.Infrastructure.Adapters
             using SqliteConnection currConnection = CreateConnection();
             currConnection.Open();
 
-            string insertCommand = "INSERT INTO Envelopes (Id, Name, IsActive) VALUES (@Id, @Name, @IsActive)";
-
+            //Create a new DB entry with this envelope's identity
+            string insertCommand = "INSERT INTO Envelopes (Id, Name, IsActive, TargetAmount) VALUES (@Id, @Name, @IsActive, @TargetAmount)";
             using SqliteCommand commandObj = currConnection.CreateCommand();
             commandObj.CommandText = insertCommand;
             commandObj.Parameters.AddWithValue("@Id", envelope.Id.ToString());
             commandObj.Parameters.AddWithValue("@Name", envelope.Name);
             commandObj.Parameters.AddWithValue("@IsActive", envelope.IsActive ? 1 : 0);
+            commandObj.Parameters.AddWithValue(
+    "@TargetAmount",
+    envelope.TargetAmount.HasValue
+        ? envelope.TargetAmount.Value
+        : DBNull.Value
+);
             commandObj.ExecuteNonQuery();
 
+            //insert into db the envelopes transactions based off the in-memory version
             foreach (var transaction in envelope.GetTransactions())
             {
                 string insertTransactions = "INSERT INTO Transactions (Id, Description, Amount, Direction, OccurredOn, EnvelopeId) VALUES (@Id, @Description, @Amount, @Direction, @OccurredOn, @EnvelopeId)";

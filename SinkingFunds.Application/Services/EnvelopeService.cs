@@ -12,11 +12,14 @@ namespace SinkingFunds.Application.Services
             repoType = targetRepo;
         }
 
+        //helper class for grid presentation
         public class EnvelopeSummary
         {
             public Guid Id { get; set; }
             public string Name { get; set; }
             public decimal Balance { get; set; }
+
+            public decimal? TargetAmount { get; set; }
         }
 
         public Envelope CreateEnvelope(string targetName)
@@ -59,7 +62,8 @@ namespace SinkingFunds.Application.Services
                 {
                     Id = envelope.Id,
                     Name = envelope.Name,
-                    Balance = envelope.GetAmount()
+                    Balance = envelope.GetAmount(),
+                    TargetAmount = envelope.TargetAmount,
                 };
                 returnedEnvelopes.Add(summary);
             }
@@ -69,6 +73,12 @@ namespace SinkingFunds.Application.Services
         public void DeleteEnvelope(Guid id)
         {
             repoType.Delete(id);
+        }
+        public void UpdateTargetAmount(Guid envelopeId, decimal amt)
+        {
+            Envelope targetEnvelope = repoType.GetById(envelopeId);
+            targetEnvelope.SetTargetAmount(amt);
+            repoType.Save(targetEnvelope);
         }
     }
 }

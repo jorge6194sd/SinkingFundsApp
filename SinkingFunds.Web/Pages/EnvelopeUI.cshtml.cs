@@ -16,6 +16,8 @@ namespace SinkingFunds.Web.Pages
             public Guid Id { get; set; }
             public string Name { get; set; }
             public decimal Balance { get; set; }
+
+            public decimal? TargetAmount {  get; set; }
         }
 
         public List<EnvelopeGridRow> Envelopes { get; set; } = new List<EnvelopeGridRow>();
@@ -85,6 +87,21 @@ namespace SinkingFunds.Web.Pages
             var response = await client.DeleteAsync($"api/envelopes/{EnvelopeId}");
             response.EnsureSuccessStatusCode();
 
+            await LoadEnvelopes(client);
+        }
+
+        public async Task OnPostUpdateTargetAmount()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7005/");
+            var content = new { TargetAmount = Amount};
+            var postContent = JsonContent.Create(content);
+            var response = await client.PutAsync($"api/envelopes/{EnvelopeId}/target", postContent);
+            response.EnsureSuccessStatusCode();
+
+            CurrentBalance = await client.GetFromJsonAsync<decimal>(
+                $"api/envelopes/{EnvelopeId}/balance"
+            );
             await LoadEnvelopes(client);
         }
 
