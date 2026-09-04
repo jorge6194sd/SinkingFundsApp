@@ -21,6 +21,8 @@ namespace SinkingFunds.Web.Pages
             public decimal? TargetAmount {  get; set; }
 
             public decimal? RuleAmount { get; set; }
+
+            public string MonthsRemaining {  get; set; }
         }
 
         public List<EnvelopeGridRow> Envelopes { get; set; } = new List<EnvelopeGridRow>();

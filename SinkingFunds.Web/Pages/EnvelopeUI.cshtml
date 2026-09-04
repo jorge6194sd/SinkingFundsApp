@@ -103,6 +103,7 @@
             <th>Balance</th>
             <th>TargetAmount</th>
             <th>RuleAmount</th>
+            <th>MonthsRemaining</th>
         </tr>
     </thead>
     <tbody>
@@ -122,6 +123,7 @@
                         ? envelope.RuleAmount.Value.ToString("C")
                         : "Not set")
                 </td>
+                <td>@envelope.MonthsRemaining</td>
             </tr>
         }
     </tbody>

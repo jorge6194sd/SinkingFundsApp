@@ -18,9 +18,10 @@ namespace SinkingFunds.Application.Services
             public Guid Id { get; set; }
             public string Name { get; set; }
             public decimal Balance { get; set; }
-
             public decimal? TargetAmount { get; set; }
             public decimal? RuleAmount { get; set; }
+
+            public string MonthsRemaining { get; set; }
         }
 
         public Envelope CreateEnvelope(string targetName)
@@ -57,18 +58,47 @@ namespace SinkingFunds.Application.Services
         private IEnumerable<EnvelopeSummary> GetEnvelopeSummaries(IEnumerable<Envelope> listOfEnvelopes)
         {
             List<EnvelopeSummary> returnedEnvelopes = new List<EnvelopeSummary>();
+
             foreach (Envelope envelope in listOfEnvelopes)
             {
+                string monthsRemaining = "Not set";
+
+                if (envelope.TargetAmount.HasValue &&
+                    envelope.GetRecurringRule() != null)
+                {
+                    decimal remaining =
+                        envelope.TargetAmount.Value - envelope.GetAmount();
+
+                    if (remaining <= 0)
+                    {
+                        monthsRemaining = "Funded";
+                    }
+                    else
+                    {
+                        int months = (int)Math.Ceiling(
+                            remaining / envelope.GetRecurringRule().RuleAmount
+                        );
+
+                        monthsRemaining =
+                            months <= 12
+                                ? $"{months} months"
+                                : "> 1 year";
+                    }
+                }
+
                 EnvelopeSummary summary = new EnvelopeSummary
                 {
                     Id = envelope.Id,
                     Name = envelope.Name,
                     Balance = envelope.GetAmount(),
                     TargetAmount = envelope.TargetAmount,
-                    RuleAmount = envelope.GetRecurringRule()?.RuleAmount
+                    RuleAmount = envelope.GetRecurringRule()?.RuleAmount,
+                    MonthsRemaining = monthsRemaining
                 };
+
                 returnedEnvelopes.Add(summary);
             }
+
             return returnedEnvelopes;
         }
 
