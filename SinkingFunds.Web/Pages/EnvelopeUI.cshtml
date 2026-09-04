@@ -77,6 +77,21 @@
     <button type="submit">Update</button>
 </form>
 
+<h2>Update Monthly Contribution</h2>
+<form method="post" asp-page-handler="UpdateMonthlyAmount">
+    <select name="EnvelopeId" required>
+        <option value="" disabled selected>Select Envelope</option>
+        @foreach (var envelope in Model.Envelopes)
+        {
+            <option value="@envelope.Id">@envelope.Name</option>
+        }
+    </select>
+
+    <input name="Amount" placeholder="Amount" />
+
+    <button type="submit">Update</button>
+</form>
+
 
 <h2>Envelope Grid</h2>
 
@@ -87,6 +102,7 @@
             <th>Id</th>
             <th>Balance</th>
             <th>TargetAmount</th>
+            <th>RuleAmount</th>
         </tr>
     </thead>
     <tbody>
@@ -99,6 +115,11 @@
                 <td>
                     @(envelope.TargetAmount.HasValue
                         ? envelope.TargetAmount.Value.ToString("C")
+                        : "Not set")
+                </td>
+                <td>
+                    @(envelope.RuleAmount.HasValue
+                        ? envelope.RuleAmount.Value.ToString("C")
                         : "Not set")
                 </td>
             </tr>

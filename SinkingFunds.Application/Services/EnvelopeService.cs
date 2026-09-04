@@ -20,6 +20,7 @@ namespace SinkingFunds.Application.Services
             public decimal Balance { get; set; }
 
             public decimal? TargetAmount { get; set; }
+            public decimal? RuleAmount { get; set; }
         }
 
         public Envelope CreateEnvelope(string targetName)
@@ -64,6 +65,7 @@ namespace SinkingFunds.Application.Services
                     Name = envelope.Name,
                     Balance = envelope.GetAmount(),
                     TargetAmount = envelope.TargetAmount,
+                    RuleAmount = envelope.GetRecurringRule()?.RuleAmount
                 };
                 returnedEnvelopes.Add(summary);
             }
@@ -79,6 +81,22 @@ namespace SinkingFunds.Application.Services
             Envelope targetEnvelope = repoType.GetById(envelopeId);
             targetEnvelope.SetTargetAmount(amt);
             repoType.Save(targetEnvelope);
+        }
+
+        public void SetMonthlyContribution(Guid envelopeId, decimal amount)
+        {
+            Envelope envelope = repoType.GetById(envelopeId);
+
+            RecurringRule monthlyRule = new RecurringRule(
+                frequency: 1,
+                unit: Domain.Enums.FrequencyUnits.Months,
+                ruleAmount: amount,
+                nextDueDate: DateTime.Today.AddMonths(1)
+                );
+
+            envelope.SetRecurringRule(monthlyRule);
+
+            repoType.Save(envelope);
         }
     }
 }

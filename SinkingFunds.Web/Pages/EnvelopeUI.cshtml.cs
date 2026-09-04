@@ -10,7 +10,8 @@ namespace SinkingFunds.Web.Pages
         public string Name { get; set; }
         public Guid? CreatedEnvelopeId { get; set; }
         public decimal? CurrentBalance { get; set; }
-
+        
+        //Build out a subset of the envelope's properties, suitable for grid display
         public class EnvelopeGridRow
         {
             public Guid Id { get; set; }
@@ -18,6 +19,8 @@ namespace SinkingFunds.Web.Pages
             public decimal Balance { get; set; }
 
             public decimal? TargetAmount {  get; set; }
+
+            public decimal? RuleAmount { get; set; }
         }
 
         public List<EnvelopeGridRow> Envelopes { get; set; } = new List<EnvelopeGridRow>();
@@ -97,6 +100,21 @@ namespace SinkingFunds.Web.Pages
             var content = new { TargetAmount = Amount};
             var postContent = JsonContent.Create(content);
             var response = await client.PutAsync($"api/envelopes/{EnvelopeId}/target", postContent);
+            response.EnsureSuccessStatusCode();
+
+            CurrentBalance = await client.GetFromJsonAsync<decimal>(
+                $"api/envelopes/{EnvelopeId}/balance"
+            );
+            await LoadEnvelopes(client);
+        }
+
+        public async Task OnPostUpdateMonthlyAmount()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://localhost:7005/");
+            var content = new { Amount = Amount };
+            var postContent = JsonContent.Create(content);
+            var response = await client.PutAsync($"api/envelopes/{EnvelopeId}/monthly-contribution", postContent);
             response.EnsureSuccessStatusCode();
 
             CurrentBalance = await client.GetFromJsonAsync<decimal>(
