@@ -88,5 +88,36 @@ namespace SinkingFunds.Tests.Infrastructure
 
         }
 
+        [Fact]
+        public void Add_ThenPersistsTargetAmount()
+        {
+            //Arrange
+            string dbPath = "test-sinkingfunds-targetamount.db";
+            if (File.Exists(dbPath))
+            {
+                File.Delete(dbPath);
+            }
+            string connString = $"Data Source={dbPath}";
+            Envelope fakeTargetAmountEnvelope = new Envelope("test-target-amount-change-envelope");
+            SqliteSchemaInitializer targetAmtSchema = new SqliteSchemaInitializer(connString);
+            targetAmtSchema.SchemaVerification();
+            SqliteEnvelopeRepository targetAmtRepo = new SqliteEnvelopeRepository(connString);
+            fakeTargetAmountEnvelope.SetTargetAmount(450);
+
+            //Act
+            targetAmtRepo.Add(fakeTargetAmountEnvelope);
+
+            //Assert
+            using SqliteConnection newConn = new SqliteConnection(connString);
+            newConn.Open();
+            string targetAmtCheck = "SELECT TargetAmount FROM Envelopes WHERE Id = @Id";
+            using SqliteCommand testCmd = newConn.CreateCommand();
+            testCmd.CommandText = targetAmtCheck;
+            testCmd.Parameters.AddWithValue("@Id", fakeTargetAmountEnvelope.Id.ToString());
+            decimal amountCheck = Convert.ToDecimal(testCmd.ExecuteScalar());
+            Assert.Equal(450m, amountCheck);
+
+        }
+
     }
 }

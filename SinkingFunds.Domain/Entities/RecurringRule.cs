@@ -13,6 +13,13 @@ namespace SinkingFunds.Domain.Entities
 
         public RecurringRule(int frequency, FrequencyUnits unit, decimal ruleAmount, DateTime nextDueDate)
         {
+
+            if (frequency <= 0)
+                throw new ArgumentOutOfRangeException(nameof(frequency));
+
+            if (ruleAmount <= 0)
+                throw new ArgumentOutOfRangeException(nameof(ruleAmount));
+
             Frequency = frequency;
             Unit = unit;
             RuleAmount = ruleAmount;

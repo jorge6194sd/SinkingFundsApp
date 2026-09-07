@@ -12,11 +12,16 @@ namespace SinkingFunds.Application.Services
             repoType = targetRepo;
         }
 
+        //helper class for grid presentation
         public class EnvelopeSummary
         {
             public Guid Id { get; set; }
             public string Name { get; set; }
             public decimal Balance { get; set; }
+            public decimal? TargetAmount { get; set; }
+            public decimal? RuleAmount { get; set; }
+
+            public string MonthsRemaining { get; set; }
         }
 
         public Envelope CreateEnvelope(string targetName)
@@ -53,22 +58,75 @@ namespace SinkingFunds.Application.Services
         private IEnumerable<EnvelopeSummary> GetEnvelopeSummaries(IEnumerable<Envelope> listOfEnvelopes)
         {
             List<EnvelopeSummary> returnedEnvelopes = new List<EnvelopeSummary>();
+
             foreach (Envelope envelope in listOfEnvelopes)
             {
+                string monthsRemaining = "Not set";
+
+                if (envelope.TargetAmount.HasValue &&
+                    envelope.GetRecurringRule() != null)
+                {
+                    decimal remaining =
+                        envelope.TargetAmount.Value - envelope.GetAmount();
+
+                    if (remaining <= 0)
+                    {
+                        monthsRemaining = "Funded";
+                    }
+                    else
+                    {
+                        int months = (int)Math.Ceiling(
+                            remaining / envelope.GetRecurringRule().RuleAmount
+                        );
+
+                        monthsRemaining =
+                            months <= 12
+                                ? $"{months} months"
+                                : "> 1 year";
+                    }
+                }
+
                 EnvelopeSummary summary = new EnvelopeSummary
                 {
                     Id = envelope.Id,
                     Name = envelope.Name,
-                    Balance = envelope.GetAmount()
+                    Balance = envelope.GetAmount(),
+                    TargetAmount = envelope.TargetAmount,
+                    RuleAmount = envelope.GetRecurringRule()?.RuleAmount,
+                    MonthsRemaining = monthsRemaining
                 };
+
                 returnedEnvelopes.Add(summary);
             }
+
             return returnedEnvelopes;
         }
 
         public void DeleteEnvelope(Guid id)
         {
             repoType.Delete(id);
+        }
+        public void UpdateTargetAmount(Guid envelopeId, decimal amt)
+        {
+            Envelope targetEnvelope = repoType.GetById(envelopeId);
+            targetEnvelope.SetTargetAmount(amt);
+            repoType.Save(targetEnvelope);
+        }
+
+        public void SetMonthlyContribution(Guid envelopeId, decimal amount)
+        {
+            Envelope envelope = repoType.GetById(envelopeId);
+
+            RecurringRule monthlyRule = new RecurringRule(
+                frequency: 1,
+                unit: Domain.Enums.FrequencyUnits.Months,
+                ruleAmount: amount,
+                nextDueDate: DateTime.Today.AddMonths(1)
+                );
+
+            envelope.SetRecurringRule(monthlyRule);
+
+            repoType.Save(envelope);
         }
     }
 }

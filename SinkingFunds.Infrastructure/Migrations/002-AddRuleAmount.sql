@@ -1,0 +1,2 @@
+﻿ALTER TABLE Envelopes
+ADD RuleAmount REAL NULL;

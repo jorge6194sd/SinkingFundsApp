@@ -54,6 +54,23 @@ namespace SinkingFunds.Web.Controllers
             return NoContent();
         }
 
+
+        // PUT api/envelopes/{id}/target
+        [HttpPut("{id}/target")]
+        public IActionResult UpdateTarget(Guid id, [FromBody] UpdateTargetAmountRequest request)
+        {
+            _envelopeService.UpdateTargetAmount(id, request.TargetAmount);
+            return NoContent();
+        }
+
+        // PUT api/envelopes/{id}/monthly-contribution
+        [HttpPut("{id}/monthly-contribution")]
+        public IActionResult UpdateRule(Guid id, [FromBody] UpdateMonthlyContributionRequest request)
+        {
+            _envelopeService.SetMonthlyContribution(id, request.Amount);
+            return NoContent();
+        }
+
         [HttpGet]
         public IActionResult GetAllEnvelopes()
         {
