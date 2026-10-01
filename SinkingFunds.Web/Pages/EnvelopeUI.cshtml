@@ -2,6 +2,8 @@
 @using SinkingFunds.Web.Pages
 @model EnvelopeUIModel
 
+<link rel="stylesheet" href="~/css/envelope-ui.css" />
+
 
 <main class="sinking-funds-page">
 
@@ -49,149 +51,131 @@
     <!-- ENVELOPE MANAGEMENT -->
     <section class="envelope-management">
 
+        <!-- CREATE ENVELOPE -->
         <article class="management-card">
 
             <h2>Create Envelope</h2>
 
             <form method="post" asp-page-handler="Create">
-                <input name="Name" placeholder="Envelope name" />
-                <button type="submit">Create</button>
+
+                <input name="Name"
+                       placeholder="Envelope name" />
+
+                <button type="submit">
+                    Create
+                </button>
+
             </form>
 
         </article>
 
 
+        <!-- UPDATE TARGET -->
         <article class="management-card">
 
             <h2>Update Target Amount</h2>
 
-            <form method="post" asp-page-handler="UpdateTargetAmount">
+            <form method="post"
+                  asp-page-handler="UpdateTargetAmount">
 
                 <select name="EnvelopeId" required>
-                    <option value="" disabled selected>Select Envelope</option>
+
+                    <option value=""
+                            disabled
+                            selected>
+                        Select Envelope
+                    </option>
 
                     @foreach (var envelope in Model.Envelopes)
                     {
-                        <option value="@envelope.Id">@envelope.Name</option>
+                        <option value="@envelope.Id">
+                            @envelope.Name
+                        </option>
                     }
 
                 </select>
 
-                <input name="Amount" placeholder="Amount" />
+                <input name="Amount"
+                       placeholder="Amount" />
 
-                <button type="submit">Update</button>
+                <button type="submit">
+                    Update
+                </button>
 
             </form>
 
         </article>
 
 
+        <!-- UPDATE MONTHLY CONTRIBUTION -->
         <article class="management-card">
 
             <h2>Update Monthly Contribution</h2>
 
-            <form method="post" asp-page-handler="UpdateMonthlyAmount">
+            <form method="post"
+                  asp-page-handler="UpdateMonthlyAmount">
 
                 <select name="EnvelopeId" required>
-                    <option value="" disabled selected>Select Envelope</option>
+
+                    <option value=""
+                            disabled
+                            selected>
+                        Select Envelope
+                    </option>
 
                     @foreach (var envelope in Model.Envelopes)
                     {
-                        <option value="@envelope.Id">@envelope.Name</option>
+                        <option value="@envelope.Id">
+                            @envelope.Name
+                        </option>
                     }
 
                 </select>
 
-                <input name="Amount" placeholder="Amount" />
+                <input name="Amount"
+                       placeholder="Amount" />
 
-                <button type="submit">Update</button>
+                <button type="submit">
+                    Update
+                </button>
 
             </form>
 
         </article>
 
 
+        <!-- DELETE ENVELOPE -->
         <article class="management-card">
 
             <h2>Delete Envelope</h2>
 
-            <form method="post" asp-page-handler="Delete">
+            <form method="post"
+                  asp-page-handler="Delete">
 
                 <select name="EnvelopeId" required>
-                    <option value="" disabled selected>Select Envelope</option>
+
+                    <option value=""
+                            disabled
+                            selected>
+                        Select Envelope
+                    </option>
 
                     @foreach (var envelope in Model.Envelopes)
                     {
-                        <option value="@envelope.Id">@envelope.Name</option>
+                        <option value="@envelope.Id">
+                            @envelope.Name
+                        </option>
                     }
 
                 </select>
 
-                <button type="submit">Delete</button>
+                <button type="submit">
+                    Delete
+                </button>
 
             </form>
 
         </article>
-
-    </section>
-
-
-    <!-- TEMPORARY MONEY MOVEMENT AREA -->
-    <section class="money-movement">
-
-        <div class="deposit-section">
-
-            <h2>Deposit</h2>
-
-            <form method="post" asp-page-handler="Deposit">
-
-                <select name="EnvelopeId">
-                    <option value="" disabled selected>Select Envelope</option>
-
-                    @foreach (var envelope in Model.Envelopes)
-                    {
-                        <option value="@envelope.Id">@envelope.Name</option>
-                    }
-
-                </select>
-
-                <input name="Amount" placeholder="Amount" />
-                <input name="Description" placeholder="Description" />
-
-                <button type="submit">Deposit</button>
-
-            </form>
-
-        </div>
-
-
-        <div class="withdraw-section">
-
-            <h2>Withdraw</h2>
-
-            <form method="post" asp-page-handler="Withdraw">
-
-                <select id="WithdrawEnvelopeId"
-                        name="EnvelopeId"
-                        required>
-
-                    <option value="" disabled selected>Select Envelope</option>
-
-                    @foreach (var envelope in Model.Envelopes)
-                    {
-                        <option value="@envelope.Id">@envelope.Name</option>
-                    }
-
-                </select>
-
-                <input name="Amount" placeholder="Amount" />
-                <input name="Description" placeholder="Description" />
-
-                <button type="submit">Withdraw</button>
-
-            </form>
-
-        </div>
 
     </section>
 
@@ -200,56 +184,141 @@
     <section class="envelopes-section">
 
         <header class="envelopes-header">
+
             <h2>Envelopes</h2>
-            <span>@Model.Envelopes.Count envelopes</span>
+
+            <span>
+                @Model.Envelopes.Count envelopes
+            </span>
+
         </header>
 
 
-        <table border="1">
+        <ul class="envelope-list">
 
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Id</th>
-                    <th>Balance</th>
-                    <th>TargetAmount</th>
-                    <th>RuleAmount</th>
-                    <th>MonthsRemaining</th>
-                </tr>
-            </thead>
+            @foreach (var envelope in Model.Envelopes)
+            {
+                <li class="envelope-item">
 
-            <tbody>
+                    <article class="envelope-card">
 
-                @foreach (var envelope in Model.Envelopes)
-                {
-                    <tr>
 
-                        <td>@envelope.Name</td>
+                        <!-- ENVELOPE IDENTITY -->
+                        <div class="envelope-identity">
 
-                        <td>@envelope.Id</td>
+                            <h3>@envelope.Name</h3>
 
-                        <td>@envelope.Balance</td>
+                        </div>
 
-                        <td>
-                            @(envelope.TargetAmount.HasValue
-                                ? envelope.TargetAmount.Value.ToString("C")
-                                : "Not set")
-                        </td>
 
-                        <td>
-                            @(envelope.RuleAmount.HasValue
-                                ? envelope.RuleAmount.Value.ToString("C")
-                                : "Not set")
-                        </td>
+                        <!-- ENVELOPE METRICS -->
+                        <div class="envelope-metrics">
 
-                        <td>@envelope.MonthsRemaining</td>
+                            <div class="envelope-metric">
 
-                    </tr>
-                }
+                                <span>Balance</span>
 
-            </tbody>
+                                <span>
+                                    @envelope.Balance.ToString("C")
+                                </span>
 
-        </table>
+                            </div>
+
+
+                            <div class="envelope-metric">
+
+                                <span>Target</span>
+
+                                <span>
+                                    @(envelope.TargetAmount.HasValue
+                                        ? envelope.TargetAmount.Value.ToString("C")
+                                        : "Not set")
+                                </span>
+
+                            </div>
+
+
+                            <div class="envelope-metric">
+
+                                <span>Monthly Contribution</span>
+
+                                <span>
+                                    @(envelope.RuleAmount.HasValue
+                                        ? envelope.RuleAmount.Value.ToString("C")
+                                        : "Not set")
+                                </span>
+
+                            </div>
+
+
+                            <div class="envelope-metric">
+
+                                <span>Months Remaining</span>
+
+                                <span>
+                                    @envelope.MonthsRemaining
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ENVELOPE ACTIONS -->
+                        <div class="envelope-actions">
+
+
+                            <!-- DEPOSIT -->
+                            <div class="deposit-section">
+
+                                <form method="post"
+                                      asp-page-handler="Deposit"
+                                      asp-route-envelopeId="@envelope.Id">
+
+                                    <input name="Amount"
+                                           placeholder="Amount" />
+
+                                    <input name="Description"
+                                           placeholder="Description" />
+
+                                    <button type="submit">
+                                        Deposit
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                            <!-- WITHDRAW -->
+                            <div class="withdraw-section">
+
+                                <form method="post"
+                                      asp-page-handler="Withdraw"
+                                      asp-route-envelopeId="@envelope.Id">
+
+                                    <input name="Amount"
+                                           placeholder="Amount" />
+
+                                    <input name="Description"
+                                           placeholder="Description" />
+
+                                    <button type="submit">
+                                        Withdraw
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </li>
+            }
+
+        </ul>
 
     </section>
 

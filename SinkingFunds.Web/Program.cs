@@ -33,5 +33,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapRazorPages();
+app.UseStaticFiles();
 
 app.Run();
