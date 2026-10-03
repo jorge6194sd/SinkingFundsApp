@@ -1,0 +1,331 @@
+﻿body {
+    margin: 0;
+    background-color: #f7f9fc;
+    color: #1f2937;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================
+   MAIN PAGE CONTAINER
+   ========================= */
+
+.sinking-funds-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 32px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   PAGE HEADER
+   ========================= */
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    .page-header h1 {
+        margin: 0;
+        font-size: 32px;
+        line-height: 1.2;
+        color: #1e3a5f;
+    }
+
+    .page-header p {
+        margin: 0;
+        font-size: 15px;
+        color: #6b7280;
+    }
+
+
+/* =========================
+   PAGE STATUS
+   ========================= */
+
+.page-status {
+    color: #4b5563;
+    font-size: 14px;
+}
+
+
+/* =========================
+   SUMMARY SECTION
+   ========================= */
+
+.summary-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+.summary-item {
+    padding: 18px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    .summary-item:not(:last-child) {
+        border-right: 1px solid #d9dee7;
+    }
+
+    .summary-item span {
+        font-size: 14px;
+        color: #6b7280;
+        font-weight: 600;
+    }
+
+
+/* =========================
+   ENVELOPE MANAGEMENT
+   ========================= */
+
+.envelope-management {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.management-card {
+    padding: 20px;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    box-sizing: border-box;
+}
+
+    .management-card h2 {
+        margin: 0 0 16px 0;
+        font-size: 18px;
+        color: #1e3a5f;
+    }
+
+    .management-card form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .management-card input,
+    .management-card select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cfd6df;
+        border-radius: 6px;
+        background-color: #ffffff;
+        color: #1f2937;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+        .management-card input:focus,
+        .management-card select:focus {
+            outline: none;
+            border-color: #4f7cac;
+        }
+
+    .management-card button {
+        width: 100%;
+        padding: 10px 12px;
+        border: none;
+        border-radius: 6px;
+        background-color: #315f8c;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+        .management-card button:hover {
+            background-color: #244b70;
+        }
+
+        .management-card button:active {
+            transform: translateY(1px);
+        }
+
+
+/* =========================
+   ENVELOPES SECTION
+   ========================= */
+
+.envelopes-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.envelopes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .envelopes-header h2 {
+        margin: 0;
+        font-size: 22px;
+        color: #1e3a5f;
+    }
+
+    .envelopes-header span {
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+
+/* =========================
+   ENVELOPE LIST
+   ========================= */
+
+.envelope-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.envelope-item {
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================
+   ENVELOPE CARD
+   ========================= */
+
+.envelope-card {
+    display: grid;
+    grid-template-columns: 220px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 24px;
+    border: 1px solid #d9dee7;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   ENVELOPE IDENTITY
+   ========================= */
+
+.envelope-identity h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #1e3a5f;
+}
+
+
+/* =========================
+   ENVELOPE METRICS
+   ========================= */
+
+.envelope-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+}
+
+.envelope-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 20px;
+}
+
+    .envelope-metric:not(:last-child) {
+        border-right: 1px solid #d9dee7;
+    }
+
+    .envelope-metric span:first-child {
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .envelope-metric span:last-child {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .envelope-metric:first-child span:last-child {
+        color: #2f855a;
+    }
+
+
+/* =========================
+   ENVELOPE ACTIONS
+   ========================= */
+
+.envelope-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.deposit-section form,
+.withdraw-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.deposit-section input,
+.withdraw-section input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #cfd6df;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #1f2937;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+    .deposit-section input:focus,
+    .withdraw-section input:focus {
+        outline: none;
+        border-color: #4f7cac;
+    }
+
+.deposit-section button,
+.withdraw-section button {
+    padding: 9px 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: #315f8c;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+    .deposit-section button:hover,
+    .withdraw-section button:hover {
+        background-color: #244b70;
+    }
+
+    .deposit-section button:active,
+    .withdraw-section button:active {
+        transform: translateY(1px);
+    }
