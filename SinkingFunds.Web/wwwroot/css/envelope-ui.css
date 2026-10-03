@@ -284,13 +284,13 @@
 .deposit-section form,
 .withdraw-section form {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 8px;
 }
 
 .deposit-section input,
 .withdraw-section input {
-    width: 110px;
+    width: 100%;
     padding: 8px 10px;
     border: 1px solid #cfd6df;
     border-radius: 6px;
