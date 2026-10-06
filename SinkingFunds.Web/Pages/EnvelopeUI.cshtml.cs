@@ -83,12 +83,11 @@ namespace SinkingFunds.Web.Pages
         }
 
 
-        public async Task OnPostDeposit(Guid envelopeId)
+        public async Task<IActionResult> OnPostDeposit(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
             var content = new
             {
@@ -96,25 +95,53 @@ namespace SinkingFunds.Web.Pages
                 Description = Description
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            var response = await client.PostAsync(
+                $"api/envelopes/{envelopeId}/deposit",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PostAsync(
-                    $"api/envelopes/{envelopeId}/deposit",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation =
+                    await response.Content
+                        .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your deposit details.");
+                }
 
-            CurrentBalance =
-                await client.GetFromJsonAsync<decimal>(
-                    $"api/envelopes/{envelopeId}/balance"
-                );
+                // Page() won't load envelopes by itself so manually call
+                await LoadEnvelopes(client);
+                // Page() is the default for showing why deposit failed
+                return Page();
+            }
 
-            await LoadEnvelopes(client);
+            // Unexpected API failures get a generic user-facing message.
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to complete the deposit. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
-
 
         public async Task OnPostWithdraw(Guid envelopeId)
         {

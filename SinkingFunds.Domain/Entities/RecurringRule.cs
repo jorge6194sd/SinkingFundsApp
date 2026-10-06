@@ -11,14 +11,25 @@ namespace SinkingFunds.Domain.Entities
         public bool IsActive { get; private set; }
         public DateTime NextDueDate { get; private set; }
 
-        public RecurringRule(int frequency, FrequencyUnits unit, decimal ruleAmount, DateTime nextDueDate)
+        public RecurringRule(
+            int frequency,
+            FrequencyUnits unit,
+            decimal ruleAmount,
+            DateTime nextDueDate)
         {
-
             if (frequency <= 0)
-                throw new ArgumentOutOfRangeException(nameof(frequency));
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(frequency),
+                    "Frequency must be greater than zero.");
+            }
 
-            if (ruleAmount <= 0)
-                throw new ArgumentOutOfRangeException(nameof(ruleAmount));
+            if (ruleAmount <= 0 || ruleAmount > 1000m)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(ruleAmount),
+                    "Contribution must be greater than zero and at most $1,000.");
+            }
 
             Frequency = frequency;
             Unit = unit;

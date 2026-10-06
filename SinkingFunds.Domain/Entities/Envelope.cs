@@ -17,21 +17,44 @@ namespace SinkingFunds.Domain.Entities
         public Envelope(string name)
         {
             this.Id = Guid.NewGuid();
-            this.Name = name;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException(
+                    "An envelope name is required.",
+                    nameof(name));
+            }
+            this.Name = name.Trim();
             this.IsActive = true;
             this.transactions = new Collection<Transaction>();
             this.envelopeDepositRule = null;
         }
 
-        public Envelope(Guid id, string name, bool isActive, decimal? targetAmount) 
+        public Envelope(
+    Guid id,
+    string name,
+    bool isActive,
+    decimal? targetAmount)
         {
             this.Id = id;
-            this.Name = name;
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException(
+                    "An envelope name is required.",
+                    nameof(name));
+            }
+
+            this.Name = name.Trim();
             this.IsActive = isActive;
-            this.TargetAmount = targetAmount;
+
+            // Validate a saved target if one exists.
+            if (targetAmount.HasValue)
+            {
+                SetTargetAmount(targetAmount.Value);
+            }
+
             this.transactions = new Collection<Transaction>();
             this.envelopeDepositRule = null;
-            
         }
 
         public void Deposit(string description, decimal amount, DateTime occuredOn)
@@ -40,12 +63,25 @@ namespace SinkingFunds.Domain.Entities
             transactions.Add(transaction);
         }
 
-        public void Withdraw(string description, decimal amount, DateTime occuredOn)
+        public void Withdraw(
+        string description,
+        decimal amount,
+        DateTime occuredOn)
         {
-            var transaction = new Transaction(description, amount, TransactionType.Withdrawal, occuredOn);
+            var transaction = new Transaction(
+                description,
+                amount,
+                TransactionType.Withdrawal,
+                occuredOn);
+
+            if (amount > GetAmount())
+            {
+                throw new InvalidOperationException(
+                    "Withdrawal cannot exceed the envelope balance.");
+            }
+
             transactions.Add(transaction);
         }
-
         public void AddExistingTransaction(Transaction transaction)
         {
             transactions.Add(transaction);
@@ -85,12 +121,13 @@ namespace SinkingFunds.Domain.Entities
         }
         public void SetTargetAmount(decimal targetAmount)
         {
-            if(targetAmount <= 0)
+            if (targetAmount <= 0 || targetAmount > 1000m)
             {
                 throw new ArgumentOutOfRangeException(
-                    nameof(targetAmount), "Target amount must be greater than zero"
-                    );
+                    nameof(targetAmount),
+                    "Target amount must be greater than zero and at most $1,000.");
             }
+
             this.TargetAmount = targetAmount;
         }
     }

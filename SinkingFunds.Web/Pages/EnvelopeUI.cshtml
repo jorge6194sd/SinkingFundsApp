@@ -19,6 +19,10 @@
     <!-- TEMPORARY STATUS / FEEDBACK -->
     <section class="page-status">
 
+        <div asp-validation-summary="All"
+             class="text-danger"
+             role="alert"></div>
+
         @if (Model.CreatedEnvelopeId.HasValue)
         {
             <p>Created Envelope ID: @Model.CreatedEnvelopeId</p>
