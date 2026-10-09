@@ -1,6 +1,7 @@
 ﻿using SinkingFunds.Domain.Enums;
 using System;
 using System.Collections.ObjectModel;
+using SinkingFunds.Domain.Exceptions;
 
 namespace SinkingFunds.Domain.Entities
 {
@@ -73,12 +74,12 @@ namespace SinkingFunds.Domain.Entities
                 amount,
                 TransactionType.Withdrawal,
                 occuredOn);
-
             if (amount > GetAmount())
             {
-                throw new InvalidOperationException(
+                throw new DomainValidationException(
                     "Withdrawal cannot exceed the envelope balance.");
             }
+            
 
             transactions.Add(transaction);
         }
