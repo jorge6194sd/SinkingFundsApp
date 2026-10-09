@@ -175,9 +175,19 @@ namespace SinkingFunds.Web.Pages
 
         public async Task<IActionResult> OnPostWithdraw(Guid envelopeId)
         {
+            ModelState.Remove(nameof(Name));
+
             using HttpClient client = new HttpClient();
 
             client.BaseAddress = new Uri("https://localhost:7005/");
+
+            // ===== ADDED: Stop here if Razor found invalid input =====
+            if (!ModelState.IsValid)
+            {
+                await LoadEnvelopes(client);
+                return Page();
+            }
+            // ===== END ADDITION =====
 
             var content = new
             {
@@ -291,6 +301,10 @@ namespace SinkingFunds.Web.Pages
 
         public async Task<IActionResult> OnPostUpdateTargetAmount(Guid envelopeId)
         {
+            // Only validate relevant form field entries
+            ModelState.Remove(nameof(Name));
+            ModelState.Remove(nameof(Description));
+
             using HttpClient client = new HttpClient();
 
             client.BaseAddress = new Uri("https://localhost:7005/");
