@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SinkingFunds.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,8 +16,7 @@ namespace SinkingFunds.Web.Middleware
         {
             _next = next;
         }
-        
-        // Build and send the error response
+
         public async Task InvokeAsync(HttpContext context)
         {
             try
@@ -26,25 +27,38 @@ namespace SinkingFunds.Web.Middleware
                 context.Request.Path.StartsWithSegments("/api") &&
                 !context.Response.HasStarted)
             {
-                var problem = new ValidationProblemDetails(
-                    new Dictionary<string, string[]>
-                    {
-                        [string.Empty] = new[] { ex.Message }
-                    })
-                {
-                    Status = StatusCodes.Status400BadRequest,
-                    Title = "One or more validation errors occurred."
-                };
-
-                context.Response.Clear();
-                context.Response.StatusCode = StatusCodes.Status400BadRequest;
-
-                await context.Response.WriteAsJsonAsync(
-                    problem,
-                    options: null,
-                    contentType: "application/problem+json",
-                    cancellationToken: context.RequestAborted);
+                await WriteValidationError(context, ex.Message);
             }
+            catch (ArgumentException ex) when (
+                context.Request.Path.StartsWithSegments("/api") &&
+                !context.Response.HasStarted)
+            {
+                await WriteValidationError(context, ex.Message);
+            }
+        }
+
+        private static async Task WriteValidationError(
+            HttpContext context,
+            string errorMessage)
+        {
+            var problem = new ValidationProblemDetails(
+                new Dictionary<string, string[]>
+                {
+                    [string.Empty] = new[] { errorMessage }
+                })
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "One or more validation errors occurred."
+            };
+
+            context.Response.Clear();
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+            await context.Response.WriteAsJsonAsync(
+                problem,
+                options: null,
+                contentType: "application/problem+json",
+                cancellationToken: context.RequestAborted);
         }
     }
 }
