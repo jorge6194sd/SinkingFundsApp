@@ -53,42 +53,71 @@ namespace SinkingFunds.Web.Pages
         public string Description { get; set; }
 
 
-        public async Task OnPostCreate()
+        public async Task<IActionResult> OnPostCreate()
         {
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
             var content = new
             {
                 Name = Name
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            using var response = await client.PostAsync(
+                "api/envelopes",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PostAsync(
-                    "api/envelopes",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation = await response.Content
+                    .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your envelope name.");
+                }
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to create the envelope. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
 
             CreatedEnvelopeId =
                 await response.Content.ReadFromJsonAsync<Guid>();
 
             await LoadEnvelopes(client);
+            return Page();
         }
 
 
-        public async Task OnPostDeposit(Guid envelopeId)
+        public async Task<IActionResult> OnPostDeposit(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
             var content = new
             {
@@ -96,32 +125,69 @@ namespace SinkingFunds.Web.Pages
                 Description = Description
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            var response = await client.PostAsync(
+                $"api/envelopes/{envelopeId}/deposit",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PostAsync(
-                    $"api/envelopes/{envelopeId}/deposit",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation =
+                    await response.Content
+                        .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your deposit details.");
+                }
 
-            CurrentBalance =
-                await client.GetFromJsonAsync<decimal>(
-                    $"api/envelopes/{envelopeId}/balance"
-                );
+                // Page() won't load envelopes by itself so manually call
+                await LoadEnvelopes(client);
+                // Page() is the default for showing why deposit failed
+                return Page();
+            }
 
-            await LoadEnvelopes(client);
+            // Unexpected API failures get a generic user-facing message.
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to complete the deposit. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
-
-        public async Task OnPostWithdraw(Guid envelopeId)
+        public async Task<IActionResult> OnPostWithdraw(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            ModelState.Remove(nameof(Name));
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            using HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri("https://localhost:7005/");
+
+            // ===== ADDED: Stop here if Razor found invalid input =====
+            if (!ModelState.IsValid)
+            {
+                await LoadEnvelopes(client);
+                return Page();
+            }
+            // ===== END ADDITION =====
 
             var content = new
             {
@@ -129,105 +195,223 @@ namespace SinkingFunds.Web.Pages
                 Description = Description
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            var response = await client.PostAsync(
+                $"api/envelopes/{envelopeId}/withdraw",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PostAsync(
-                    $"api/envelopes/{envelopeId}/withdraw",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation = await response.Content
+                    .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your withdrawal details.");
+                }
 
-            CurrentBalance =
-                await client.GetFromJsonAsync<decimal>(
-                    $"api/envelopes/{envelopeId}/balance"
-                );
+                await LoadEnvelopes(client);
+                return Page();
+            }
 
-            await LoadEnvelopes(client);
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to complete the withdrawal. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
 
-        public async Task OnPostDelete(Guid envelopeId)
+        public async Task<IActionResult> OnPostDelete(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
-            var response =
-                await client.DeleteAsync(
-                    $"api/envelopes/{envelopeId}"
-                );
+            using var response = await client.DeleteAsync(
+                $"api/envelopes/{envelopeId}"
+            );
 
-            response.EnsureSuccessStatusCode();
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation = await response.Content
+                    .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            await LoadEnvelopes(client);
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Unable to delete this envelope. Please check your request.");
+                }
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "This envelope could not be found. It may already have been deleted.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to delete the envelope. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
-
-        public async Task OnPostUpdateTargetAmount(Guid envelopeId)
+        public async Task<IActionResult> OnPostUpdateTargetAmount(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            // Only validate relevant form field entries
+            ModelState.Remove(nameof(Name));
+            ModelState.Remove(nameof(Description));
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            using HttpClient client = new HttpClient();
+
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
             var content = new
             {
                 TargetAmount = Amount
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            using var response = await client.PutAsync(
+                $"api/envelopes/{envelopeId}/target",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PutAsync(
-                    $"api/envelopes/{envelopeId}/target",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation = await response.Content
+                    .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your target amount.");
+                }
 
-            CurrentBalance =
-                await client.GetFromJsonAsync<decimal>(
-                    $"api/envelopes/{envelopeId}/balance"
-                );
+                await LoadEnvelopes(client);
+                return Page();
+            }
 
-            await LoadEnvelopes(client);
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to update the target amount. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
 
-        public async Task OnPostUpdateMonthlyAmount(Guid envelopeId)
+        public async Task<IActionResult> OnPostUpdateMonthlyAmount(Guid envelopeId)
         {
-            HttpClient client = new HttpClient();
+            using HttpClient client = new HttpClient();
 
-            client.BaseAddress =
-                new Uri("https://localhost:7005/");
+            client.BaseAddress = new Uri("https://localhost:7005/");
 
             var content = new
             {
                 Amount = Amount
             };
 
-            var postContent =
-                JsonContent.Create(content);
+            using var response = await client.PutAsync(
+                $"api/envelopes/{envelopeId}/monthly-contribution",
+                JsonContent.Create(content)
+            );
 
-            var response =
-                await client.PutAsync(
-                    $"api/envelopes/{envelopeId}/monthly-contribution",
-                    postContent
-                );
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                var validation = await response.Content
+                    .ReadFromJsonAsync<ValidationProblemDetails>();
 
-            response.EnsureSuccessStatusCode();
+                if (validation != null && validation.Errors.Count > 0)
+                {
+                    foreach (var field in validation.Errors)
+                    {
+                        foreach (var message in field.Value)
+                        {
+                            ModelState.AddModelError(field.Key, message);
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(
+                        string.Empty,
+                        "Please check your monthly contribution.");
+                }
 
-            CurrentBalance =
-                await client.GetFromJsonAsync<decimal>(
-                    $"api/envelopes/{envelopeId}/balance"
-                );
+                await LoadEnvelopes(client);
+                return Page();
+            }
 
-            await LoadEnvelopes(client);
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError(
+                    string.Empty,
+                    "Unable to update the monthly contribution. Please try again.");
+
+                await LoadEnvelopes(client);
+                return Page();
+            }
+
+            return RedirectToPage();
         }
 
 
